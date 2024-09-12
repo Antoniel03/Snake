@@ -11,7 +11,6 @@ private:
   int length;
   std::list<coordinate> body;
   direction current_movement;
-  std::map<coordinate, coordinate> movement;
 
 public:
   Snake();

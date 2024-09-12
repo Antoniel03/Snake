@@ -29,9 +29,15 @@ int main(int argc, char *arg[]) {
 
     if (ruler.get_game_state() != GAME_OVER) {
       g.update_screen(s.get_screen(), ruler.get_snake_head_position());
+
       std::this_thread::sleep_for(std::chrono::milliseconds(60));
+
       s.reset();
-      ruler.set_snake_head_position(player.get_body().back());
+
+      ruler.set_snake_head_position(
+          player.get_body()
+              .back()); // X Remove when not using the game data screen
+                        //
       ruler.update_snake_position(player, g.get_last_pressed_key());
     }
 

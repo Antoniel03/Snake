@@ -1,6 +1,5 @@
 #include "headers/snake.hpp"
-#include "headers/coordinate.hpp"
-#include "headers/state.hpp"
+#include "headers/utils.hpp"
 #include <iostream>
 
 using std::list;

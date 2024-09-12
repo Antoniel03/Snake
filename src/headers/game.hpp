@@ -9,7 +9,7 @@ enum game_state { NOT_STARTED, PLAYING, GAME_OVER, PAUSED };
 class Game {
 private:
   game_state state = NOT_STARTED;
-  coordinate snake_head;
+  coordinate snake_head; // X Remove when not using the game data screen
 
 public:
   Game();

@@ -1,6 +1,4 @@
-#include "headers/coordinate.hpp"
-#include "headers/direction.hpp"
-#include "headers/state.hpp"
+#include "headers/utils.hpp"
 #include <iostream>
 #include <ncurses.h>
 
@@ -26,6 +24,7 @@ coordinate operator+(const coordinate &a, const coordinate &b) {
   return result;
 }
 
+// I think this is not being used
 bool operator<(const coordinate &a, const coordinate &b) {
 
   if (a.x == b.x) {
