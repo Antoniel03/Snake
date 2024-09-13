@@ -10,3 +10,4 @@ bool same_coordinates(coordinate a, coordinate b);
 coordinate sum_coordinates(coordinate a, coordinate b);
 coordinate operator+(coordinate const &a, coordinate const &b);
 bool operator<(const coordinate &a, const coordinate &b);
+int random_int(int from, int to);

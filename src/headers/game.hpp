@@ -13,17 +13,18 @@ private:
 
 public:
   Game();
-  void init_player(Snake &player);
-  void place_snake(Snake &snake, Screen &screen);
-  void start_game(Screen &screen, Snake &player);
+  void init_player(Snake &player); // X Not being used
+  void place_snake(Snake snake, Screen &screen);
+  void start_game(Screen &screen, Snake &player); // Not being used
   void update_screen(Screen &screen, Snake &player);
   void update_snake_position(Snake &player, int key);
-  bool validate_direction();
+  bool validate_direction(); // Not being used
   void generate_food();
   bool check_game_over(std::list<coordinate> snake_body);
 
-  bool apply_buff(Snake player);
-  void generate_buff();
+  bool taking_buff(coordinate snake_head, coordinate food);
+  void apply_buff(Snake &player, Screen &s);
+  void generate_buff(Screen &s);
 
   void set_state(game_state s);
   void terminate();

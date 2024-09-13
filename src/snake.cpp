@@ -51,7 +51,6 @@ void Snake::move() {
   }
   }
 
-  // THE BODY PARTS ARE NOT FOLLOWING THE HEAD
   for (list<coordinate>::iterator body_part = body.begin();
        body_part != body.end(); body_part++) {
     auto aux = body_part;

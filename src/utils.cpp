@@ -86,3 +86,9 @@ std::string direction_to_str(direction d) {
   }
   return "";
 }
+
+int random_int(int from, int to) {
+  srand((unsigned)time(NULL));
+  int random = from + (rand() % to);
+  return random;
+}

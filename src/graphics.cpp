@@ -12,16 +12,22 @@ void Graphics::init_game_screen() {
   box(game_screen, 0, 0);
 }
 
-void Graphics::update_screen(int screen[30][100], coordinate xy) {
+// We could pass the Screen object instead of the matrix to use the get_cell
+// method for better readability
+void Graphics::update_screen(int screen[30][100], coordinate xy,
+                             coordinate food) {
   init_game_screen();
-  init_data_screen(xy);
+  init_data_screen(xy, food);
   for (int i = 1; i < 29; i++) {
     for (int j = 1; j < 99; j++) {
       if (screen[i][j] == 1) {
         wmove(game_screen, i, j);
-        wattron(game_screen, A_STANDOUT);
-        waddch(game_screen, ' ');
-        wattroff(game_screen, A_STANDOUT);
+        /*wattron(game_screen, A_STANDOUT);*/
+        waddch(game_screen, 'O');
+        /*wattroff(game_screen, A_STANDOUT);*/
+      } else if (screen[i][j] == 2) {
+        wmove(game_screen, i, j);
+        waddch(game_screen, 'X');
       } else {
         wmove(game_screen, i, j);
         waddch(game_screen, ' ');
@@ -62,7 +68,7 @@ int Graphics::get_last_pressed_key() { return key; }
 
 WINDOW *Graphics::get_game_window() { return game_screen; }
 
-void Graphics::init_data_screen(coordinate xy) {
+void Graphics::init_data_screen(coordinate xy, coordinate food) {
   data_screen = newwin(5, 50, 30, 0);
   box(data_screen, 0, 0);
   wmove(data_screen, 1, 1);
@@ -71,7 +77,9 @@ void Graphics::init_data_screen(coordinate xy) {
 
   wprintw(data_screen, "Current direction: %s", direction_input.data());
   wmove(data_screen, 2, 1);
-  wprintw(data_screen, "Current head position: %d,%d", xy.x, xy.y);
+  wprintw(data_screen, "Head position: %d,%d", xy.x, xy.y);
+  wmove(data_screen, 3, 1);
+  wprintw(data_screen, "Food position: %d,%d", food.x, food.y);
 }
 void Graphics::set_key(int k) { key = k; }
 

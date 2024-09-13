@@ -1,4 +1,6 @@
 #include "headers/game.hpp"
+#include "headers/coordinate.hpp"
+#include "headers/state.hpp"
 #include "headers/utils.hpp"
 #include <ncurses.h>
 using std::list;
@@ -17,7 +19,7 @@ void Game::init_player(Snake &player) {
   /*player.set_body(player_body);*/
 }
 
-void Game::place_snake(Snake &snake, Screen &screen) {
+void Game::place_snake(Snake snake, Screen &screen) {
   list<coordinate> body = snake.get_body();
   for (auto i : body) {
     screen.set_cell_state(i, OCCUPIED);
@@ -92,3 +94,27 @@ coordinate Game::get_snake_head_position() { return snake_head; }
 void Game::set_game_state(game_state s) { state = s; }
 
 game_state Game::get_game_state() { return state; }
+
+void Game::generate_buff(Screen &s) {
+  if (s.get_food().state == EMPTY) {
+    coordinate food{random_int(1, 28), random_int(1, 99), FOOD};
+    s.set_cell_state(food, FOOD);
+    s.set_food(food);
+  }
+}
+
+bool Game::taking_buff(coordinate snake_head, coordinate food) {
+  if (same_coordinates(snake_head, food))
+    return true;
+  return false;
+}
+
+void Game::apply_buff(Snake &player, Screen &s) {
+  list<coordinate> player_body = player.get_body();
+  coordinate player_tail = player_body.front();
+  player_body.push_front(player_tail);
+  player.set_body(player_body);
+
+  coordinate food = s.get_food();
+  s.set_food({0, 0, EMPTY});
+}
