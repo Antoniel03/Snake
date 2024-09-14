@@ -68,4 +68,4 @@ void Snake::move() {
 void Snake::movement_handler(coordinate change_point,
                              coordinate direction_change) {}
 
-void Snake::increase_body(int n) {}
+void Snake::increase_length() { length++; }

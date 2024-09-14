@@ -21,7 +21,7 @@ int main(int argc, char *arg[]) {
   g.init_graphics();
   std::thread t([&g] { g.init_player_input(); });
   ruler.set_snake_head_position(player.get_body().back());
-  g.init_game_screen();
+  g.init_game_screen(player.get_length() - 2);
   g.init_data_screen(ruler.get_snake_head_position(), s.get_food());
   t.detach();
 
@@ -30,7 +30,7 @@ int main(int argc, char *arg[]) {
     if (ruler.get_game_state() != GAME_OVER) {
       ruler.generate_buff(s);
       g.update_screen(s.get_screen(), ruler.get_snake_head_position(),
-                      s.get_food());
+                      s.get_food(), player.get_length() - 2);
 
       std::this_thread::sleep_for(std::chrono::milliseconds(60));
 
@@ -45,7 +45,7 @@ int main(int argc, char *arg[]) {
 
     if (ruler.check_game_over(player.get_body())) {
       ruler.set_game_state(GAME_OVER);
-      g.init_game_over_screen();
+      g.init_game_over_screen(player.get_length() - 2);
     } else {
       if (ruler.taking_buff(player.get_body().back(), s.get_food()))
         ruler.apply_buff(player, s);

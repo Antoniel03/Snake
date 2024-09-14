@@ -97,7 +97,7 @@ game_state Game::get_game_state() { return state; }
 
 void Game::generate_buff(Screen &s) {
   if (s.get_food().state == EMPTY) {
-    coordinate food{random_int(1, 28), random_int(1, 99), FOOD};
+    coordinate food{random_int(1, 28), random_int(1, 98), FOOD};
     s.set_cell_state(food, FOOD);
     s.set_food(food);
   }
@@ -114,6 +114,7 @@ void Game::apply_buff(Snake &player, Screen &s) {
   coordinate player_tail = player_body.front();
   player_body.push_front(player_tail);
   player.set_body(player_body);
+  player.increase_length();
 
   coordinate food = s.get_food();
   s.set_food({0, 0, EMPTY});

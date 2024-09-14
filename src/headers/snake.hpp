@@ -19,7 +19,7 @@ public:
   void set_body(std::list<coordinate> new_body);
   void set_direction(direction somewhere);
   void set_length(int n);
-  void increase_body(int n);
+  void increase_length();
   void move();
   void movement_handler(coordinate change_point, coordinate direction_change);
 
