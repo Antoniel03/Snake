@@ -8,50 +8,44 @@
 using std::cout;
 using std::endl;
 using std::string;
-void print_body(list<coordinate> b);
+void game_loop();
 
-int main(int argc, char *arg[]) {
-  Game_IO g;
-  Screen s;
-  Game ruler;
+int main(int argc, char *arg[]) { game_loop(); }
+
+void game_loop() {
+  Game_IO game_io;
+  Screen screen;
+  Game game_logic;
   Snake player{2, RIGHT};
+  int score = 0;
 
-  ruler.place_snake(player, s);
-
-  g.init_graphics();
-  std::thread t([&g] { g.init_player_input(); });
-  g.init_game_screen(player.get_length() - 2);
+  game_io.init_graphics();
+  std::thread t([&game_io] { game_io.init_player_input(); });
+  game_io.init_game_screen(score);
   t.detach();
 
-  while (g.get_last_pressed_key() != 27) {
-
-    if (ruler.get_game_state() != GAME_OVER) {
-      ruler.generate_food(s);
-      g.update_screen(s.get_screen(), s.get_food(), player.get_length() - 2);
+  while (game_io.get_last_pressed_key() != 27) {
+    if (game_logic.get_game_state() != GAME_OVER) {
+      game_logic.generate_food(screen);
+      game_io.update_screen(screen.get_screen(), screen.get_food(), score);
 
       std::this_thread::sleep_for(std::chrono::milliseconds(60));
-
-      s.reset();
-      //
-      ruler.update_snake_position(player, g.get_last_pressed_key());
+      screen.reset();
+      game_logic.update_snake_position(player, game_io.get_last_pressed_key());
     }
 
-    if (ruler.check_game_over(player.get_body())) {
-      ruler.set_game_state(GAME_OVER);
-      g.init_game_over_screen(player.get_length() - 2);
+    if (game_logic.check_game_over(player.get_body())) {
+      game_logic.set_game_state(GAME_OVER);
+      game_io.init_game_over_screen(score);
     } else {
-      if (ruler.taking_food(player.get_body().back(), s.get_food()))
-        ruler.apply_buff(player, s);
+      if (game_logic.taking_food(player.get_body().back(), screen.get_food())) {
+        game_logic.apply_buff(player, screen);
+        score++;
+      }
       player.move();
-      ruler.place_snake(player, s);
+      game_logic.place_snake(player, screen);
     }
   }
-  cout << "GAME OVER" << endl;
-}
 
-void print_body(list<coordinate> b) {
-  for (auto i : b) {
-    cout << "(" << i.x << "," << i.y << ")";
-  }
-  cout << endl;
+  system("clear");
 }
