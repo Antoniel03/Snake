@@ -7,18 +7,6 @@ using std::list;
 
 Game::Game() {}
 
-void Game::init_player(Snake &player) {
-  int i = 0;
-  /*coordinate a{0, 0, OCCUPIED};*/
-  /*coordinate b{0, 1, OCCUPIED};*/
-
-  /*list<coordinate> player_body;*/
-  /*player_body.push_front(a);*/
-  /*player_body.push_front(b);*/
-
-  /*player.set_body(player_body);*/
-}
-
 void Game::place_snake(Snake snake, Screen &screen) {
   list<coordinate> body = snake.get_body();
   for (auto i : body) {
@@ -26,12 +14,7 @@ void Game::place_snake(Snake snake, Screen &screen) {
   }
 }
 
-void Game::start_game(Screen &screen, Snake &player) {}
-
-void Game::update_screen(Screen &screen, Snake &player) {}
-
 void Game::update_snake_position(Snake &player, int key) {
-
   switch (key) {
   case KEY_UP:
     if (player.get_direction() != DOWN)
@@ -73,7 +56,6 @@ bool Game::check_game_over(list<coordinate> snake_body) {
 }
 
 bool Game::snake_overlap(list<coordinate> snake_body) {
-
   list<coordinate>::iterator limit = snake_body.end();
   limit--;
   for (list<coordinate>::iterator body_part = snake_body.begin();
@@ -85,37 +67,31 @@ bool Game::snake_overlap(list<coordinate> snake_body) {
   return false;
 }
 
-void Game::set_state(game_state s) { state = s; }
-
-void Game::set_snake_head_position(coordinate xy) { snake_head = xy; }
-
-coordinate Game::get_snake_head_position() { return snake_head; }
-
-void Game::set_game_state(game_state s) { state = s; }
+void Game::set_game_state(game_state _state) { state = _state; }
 
 game_state Game::get_game_state() { return state; }
 
-void Game::generate_buff(Screen &s) {
-  if (s.get_food().state == EMPTY) {
-    coordinate food{random_int(1, 28), random_int(1, 98), FOOD};
-    s.set_cell_state(food, FOOD);
-    s.set_food(food);
+void Game::generate_food(Screen &screen) {
+  if (screen.get_food().state == EMPTY) {
+    coordinate food_position{random_int(1, 28), random_int(1, 98), FOOD};
+    screen.set_cell_state(food_position, FOOD);
+    screen.set_food(food_position);
   }
 }
 
-bool Game::taking_buff(coordinate snake_head, coordinate food) {
+bool Game::taking_food(coordinate snake_head, coordinate food) {
   if (same_coordinates(snake_head, food))
     return true;
   return false;
 }
 
-void Game::apply_buff(Snake &player, Screen &s) {
+void Game::apply_buff(Snake &player, Screen &screen) {
   list<coordinate> player_body = player.get_body();
   coordinate player_tail = player_body.front();
   player_body.push_front(player_tail);
   player.set_body(player_body);
   player.increase_length();
 
-  coordinate food = s.get_food();
-  s.set_food({0, 0, EMPTY});
+  coordinate food = screen.get_food();
+  screen.set_food({0, 0, EMPTY});
 }

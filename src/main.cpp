@@ -20,24 +20,19 @@ int main(int argc, char *arg[]) {
 
   g.init_graphics();
   std::thread t([&g] { g.init_player_input(); });
-  ruler.set_snake_head_position(player.get_body().back());
   g.init_game_screen(player.get_length() - 2);
   t.detach();
 
   while (g.get_last_pressed_key() != 27) {
 
     if (ruler.get_game_state() != GAME_OVER) {
-      ruler.generate_buff(s);
+      ruler.generate_food(s);
       g.update_screen(s.get_screen(), s.get_food(), player.get_length() - 2);
 
       std::this_thread::sleep_for(std::chrono::milliseconds(60));
 
       s.reset();
-
-      ruler.set_snake_head_position(
-          player.get_body()
-              .back()); // X Remove when not using the game data screen
-                        //
+      //
       ruler.update_snake_position(player, g.get_last_pressed_key());
     }
 
@@ -45,7 +40,7 @@ int main(int argc, char *arg[]) {
       ruler.set_game_state(GAME_OVER);
       g.init_game_over_screen(player.get_length() - 2);
     } else {
-      if (ruler.taking_buff(player.get_body().back(), s.get_food()))
+      if (ruler.taking_food(player.get_body().back(), s.get_food()))
         ruler.apply_buff(player, s);
       player.move();
       ruler.place_snake(player, s);
