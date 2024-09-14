@@ -1,5 +1,5 @@
 #include "headers/game.hpp"
-#include "headers/graphics.hpp"
+#include "headers/game_io.hpp"
 #include "headers/state.hpp"
 #include <chrono>
 #include <ncurses.h>
@@ -11,7 +11,7 @@ using std::string;
 void print_body(list<coordinate> b);
 
 int main(int argc, char *arg[]) {
-  Graphics g;
+  Game_IO g;
   Screen s;
   Game ruler;
   Snake player{2, RIGHT};
@@ -46,7 +46,6 @@ int main(int argc, char *arg[]) {
       ruler.place_snake(player, s);
     }
   }
-  endwin();
   cout << "GAME OVER" << endl;
 }
 

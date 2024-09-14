@@ -12,7 +12,7 @@ using std::list;
 #ifndef GRAPHICS
 #define GRAPHICS
 
-class Graphics {
+class Game_IO {
 private:
   WINDOW *game_screen;
   WINDOW *data_screen;
@@ -20,7 +20,7 @@ private:
   int key;
 
 public:
-  Graphics();
+  Game_IO();
   void update_screen(int screen[30][100], coordinate food, int score);
   void init_graphics();
   void init_game_screen(int score);

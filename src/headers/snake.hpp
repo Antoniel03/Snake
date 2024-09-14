@@ -12,6 +12,8 @@ private:
   std::list<coordinate> body;
   direction current_movement;
 
+  void movement_handler(coordinate direction_change);
+
 public:
   Snake();
   Snake(int _length, direction _current_movement);
@@ -26,7 +28,6 @@ public:
 
   void increase_length();
   void move();
-  void movement_handler(coordinate direction_change);
 };
 
 #endif

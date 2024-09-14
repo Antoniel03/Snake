@@ -1,4 +1,4 @@
-#include "headers/graphics.hpp"
+#include "headers/game_io.hpp"
 #include "headers/coordinate.hpp"
 #include "headers/direction.hpp"
 #include "headers/state.hpp"
@@ -6,16 +6,16 @@
 #include <thread>
 using std::string;
 
-Graphics::Graphics() {}
+Game_IO::Game_IO() {}
 
-void Graphics::init_game_screen(int score) {
+void Game_IO::init_game_screen(int score) {
   move(0, 45);
   printw("Score: %d", score);
   game_screen = newwin(30, 100, 1, 0);
   box(game_screen, 0, 0);
 }
 // X call to data_screen and xy parameter
-void Graphics::update_screen(int screen[30][100], coordinate food, int score) {
+void Game_IO::update_screen(int screen[30][100], coordinate food, int score) {
   init_game_screen(score);
   for (int i = 1; i < 29; i++) {
     for (int j = 1; j < 99; j++) {
@@ -37,14 +37,14 @@ void Graphics::update_screen(int screen[30][100], coordinate food, int score) {
   refresh();
 }
 // BETTER AS INPUT/OUTPUT
-void Graphics::init_graphics() {
+void Game_IO::init_graphics() {
   initscr();
   raw();
   noecho();
   keypad(stdscr, true);
 }
 
-void Graphics::init_player_input() {
+void Game_IO::init_player_input() {
   while (key != 27) {
     key = getch();
     switch (key) {
@@ -61,11 +61,11 @@ void Graphics::init_player_input() {
   endwin();
 }
 
-int Graphics::get_last_pressed_key() { return key; }
+int Game_IO::get_last_pressed_key() { return key; }
 
-void Graphics::set_key(int k) { key = k; }
+void Game_IO::set_key(int k) { key = k; }
 
-void Graphics::init_game_over_screen(int score) {
+void Game_IO::init_game_over_screen(int score) {
   game_over_screen = newwin(5, 20, 10, 40);
   box(game_over_screen, 0, 0);
   wmove(game_over_screen, 1, 1);
