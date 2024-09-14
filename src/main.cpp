@@ -22,15 +22,13 @@ int main(int argc, char *arg[]) {
   std::thread t([&g] { g.init_player_input(); });
   ruler.set_snake_head_position(player.get_body().back());
   g.init_game_screen(player.get_length() - 2);
-  g.init_data_screen(ruler.get_snake_head_position(), s.get_food());
   t.detach();
 
   while (g.get_last_pressed_key() != 27) {
 
     if (ruler.get_game_state() != GAME_OVER) {
       ruler.generate_buff(s);
-      g.update_screen(s.get_screen(), ruler.get_snake_head_position(),
-                      s.get_food(), player.get_length() - 2);
+      g.update_screen(s.get_screen(), s.get_food(), player.get_length() - 2);
 
       std::this_thread::sleep_for(std::chrono::milliseconds(60));
 
