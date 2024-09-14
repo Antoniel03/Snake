@@ -19,13 +19,14 @@ public:
   void set_body(std::list<coordinate> new_body);
   void set_direction(direction somewhere);
   void set_length(int n);
-  void increase_length();
-  void move();
-  void movement_handler(coordinate change_point, coordinate direction_change);
 
   std::list<coordinate> get_body();
   direction get_direction();
   int get_length();
+
+  void increase_length();
+  void move();
+  void movement_handler(coordinate direction_change);
 };
 
 #endif

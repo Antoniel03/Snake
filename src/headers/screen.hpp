@@ -12,9 +12,7 @@ private:
 public:
   Screen();
   void reset();
-  void set_cell_state(
-      coordinate position,
-      cell_state state); // It doesn't really need the cell_state parameter
+  void set_cell_state(coordinate position);
   cell_state get_cell_state(int x, int y);
   int (*(get_screen)())[100];
   coordinate get_food();

@@ -10,7 +10,7 @@ Game::Game() {}
 void Game::place_snake(Snake snake, Screen &screen) {
   list<coordinate> body = snake.get_body();
   for (auto i : body) {
-    screen.set_cell_state(i, OCCUPIED);
+    screen.set_cell_state(i);
   }
 }
 
@@ -74,7 +74,7 @@ game_state Game::get_game_state() { return state; }
 void Game::generate_food(Screen &screen) {
   if (screen.get_food().state == EMPTY) {
     coordinate food_position{random_int(1, 28), random_int(1, 98), FOOD};
-    screen.set_cell_state(food_position, FOOD);
+    screen.set_cell_state(food_position);
     screen.set_food(food_position);
   }
 }

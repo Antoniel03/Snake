@@ -1,4 +1,5 @@
 #include "headers/snake.hpp"
+#include "headers/state.hpp"
 #include "headers/utils.hpp"
 #include <iostream>
 
@@ -27,30 +28,29 @@ direction Snake::get_direction() { return current_movement; }
 int Snake::get_length() { return length; }
 
 void Snake::move() {
-  coordinate direction_change;
+  coordinate direction_change{0, 0, OCCUPIED};
   switch (current_movement) {
   case UP: {
-    direction_change.x = -1;
-    direction_change.y = 0;
+    direction_change.x += -1;
     break;
   }
   case DOWN: {
-    direction_change.x = 1;
-    direction_change.y = 0;
+    direction_change.x += 1;
     break;
   }
   case LEFT: {
-    direction_change.x = 0;
-    direction_change.y = -1;
+    direction_change.y += -1;
     break;
   }
   case RIGHT: {
-    direction_change.x = 0;
-    direction_change.y = 1;
+    direction_change.y += 1;
     break;
   }
   }
+  movement_handler(direction_change);
+}
 
+void Snake::movement_handler(coordinate direction_change) {
   for (list<coordinate>::iterator body_part = body.begin();
        body_part != body.end(); body_part++) {
     auto aux = body_part;
@@ -61,11 +61,9 @@ void Snake::move() {
   }
 
   coordinate new_head = body.back() + direction_change;
+  new_head.state = OCCUPIED;
   body.pop_back();
   body.push_back(new_head);
 }
-
-void Snake::movement_handler(coordinate change_point,
-                             coordinate direction_change) {}
 
 void Snake::increase_length() { length++; }
