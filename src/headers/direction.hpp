@@ -1,7 +1,5 @@
 #include <iostream>
-#ifndef DIRECTION
-#define DIRECTION
+
+#pragma once
 
 enum direction { LEFT, RIGHT, UP, DOWN };
-
-#endif

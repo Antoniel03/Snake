@@ -1,10 +1,8 @@
 #include "coordinate.hpp"
 #include "direction.hpp"
 #include <list>
-#include <map>
 
-#ifndef SNAKE
-#define SNAKE
+#pragma once
 
 class Snake {
 private:
@@ -29,5 +27,3 @@ public:
   void increase_length();
   void move();
 };
-
-#endif

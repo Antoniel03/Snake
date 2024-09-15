@@ -1,9 +1,8 @@
 
 #include "coordinate.hpp"
 #include "state.hpp"
-#ifndef GAME_SCREEN
-#define GAME_SCREEN
 
+#pragma once
 class Screen {
 private:
   int screen[30][100];
@@ -18,5 +17,3 @@ public:
   coordinate get_food();
   void set_food(coordinate f);
 };
-
-#endif

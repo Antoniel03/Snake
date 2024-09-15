@@ -1,6 +1,5 @@
 #include "coordinate.hpp"
 #include "direction.hpp"
-#include <iostream>
 
 #pragma once
 std::string code_to_str(int ch);

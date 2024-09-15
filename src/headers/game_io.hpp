@@ -5,12 +5,10 @@
 #include <list>
 #include <ncurses.h>
 
+#pragma once
 using std::cout;
 using std::endl;
 using std::list;
-
-#ifndef GRAPHICS
-#define GRAPHICS
 
 class Game_IO {
 private:
@@ -29,4 +27,3 @@ public:
   int get_last_pressed_key();
   void init_game_over_screen(int score);
 };
-#endif
