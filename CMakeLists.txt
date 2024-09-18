@@ -1,4 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
+
+#set( CMAKE_CXX_COMPILER "/pathto/g++" )
+#set( CMAKE_C_COMPILER "/pathto/gcc" )
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
